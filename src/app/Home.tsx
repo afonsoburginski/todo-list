@@ -54,16 +54,17 @@ export default function Home() {
   const randomizeTaskList = useCallback((count: number) => {
     randomizeTasks(count)
       .then(response => {
-        if (response.status === 200) {
+        if (response.status >= 200 && response.status < 300) {
           getTasks()
             .then(response => {
               setTasks(response.data);
-            });
+            })
+            .catch(error => {});
         }
-      });
-  }, []);
+      })
+      .catch(error => {});
+  }, [tasks]);
 
-  
   return (
     <View style={styles.container}>
       <Text style={styles.title}>To-do</Text>
@@ -78,7 +79,7 @@ export default function Home() {
           <AddTaskButton onPress={addNewTask} enabled={!!newTask} />
         </View>
         <View style={styles.buttonContainer}>
-          <Button title="Randomize Tasks" onPress={() => randomizeTasks(50)} />
+          <Button title="Randomize Tasks" onPress={() => randomizeTaskList(50)} />
         </View>
         <FlatList
           data={sortedTasks}

@@ -1,7 +1,7 @@
-
 <h3 align= "center" fontSize="60px">
   Todo List
 </h3>
+
 
 ## :rocket: Tecnologias
 -  React Native - Expo SDK 50
